@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import requireAuth from '../controllers/auth.js';
 import userModel from '../dao/models/users.js';
 import { createHash, isValidPassword } from '../utils.js'
 import config from '../config/config.js';
@@ -13,8 +12,36 @@ const router = Router();
 
 router.use(cookieParser());
 
-router.get("/", (req, res) => {
-    return res.json({ message: "Hello World (public content)" });
+
+router.post('/register', async (req, res) => {
+    try {
+        const { first_name, last_name, email, age, password } = req.body;
+
+        // Verifica los campos obligatorios en la solicitud.
+        if (!first_name || !last_name || !email || !password) {
+            return res.status(400).json({ status: "error", error: "Missing required fields" });
+        }
+
+        // Verifica si el "email" ya existe en la DB
+        const exists = await userModel.findOne({ email });
+        if (exists) {
+            return res.status(400).json({ status: "error", error: "User already exists" });
+        }
+
+        // Crea el usuario en la DB
+        const user = {
+            first_name,
+            last_name,
+            email,
+            age,
+            password: createHash(password)
+        }
+        const result = await userModel.create(user);
+        return res.status(200).json({ status: "success", message: "User registered" });
+    } catch (error) {
+        console.error("User registration error:", error);
+        return res.status(500).json({ status: "error", error: "Internal Server Error" });
+    }
 });
 
 router.post("/login", async (req, res) => {
@@ -64,31 +91,5 @@ router.post("/login", async (req, res) => {
 
 });
 
-
-router.get("/protected", requireAuth, (req, res) => {
-    // Recupera el token de la cookie "access_token"
-    const token = req.cookies.access_token;
-
-    if (!token) {
-        return res.status(401).json({ status: "error", message: "Token not provided" });
-    }
-    try {
-        // Decodificar el token
-        const decoded = jwt.verify(token, "t0k3nJwtS3cr3t");
-        // Eliminar los campos "iat" y "exp"
-        const { iat, exp, ...userData } = decoded;
-        return res.json(userData); // Retornar los datos del token sin "iat" y "exp"
-    } catch (error) {
-        return res.status(401).json({ status: "error", message: "Invalid token" });
-    }
-});
-
-
-router.get("/logout", requireAuth, (req, res) => {
-    return res
-        .clearCookie("access_token")
-        .status(200)
-        .json({ message: "Successfully logged out" });
-});
 
 export default router;
