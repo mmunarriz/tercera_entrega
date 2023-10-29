@@ -27,6 +27,7 @@ form.addEventListener('submit', e => {
                 window.location.href = '/login';
             } else if (data.status === "error") { 
                 alert(data.error);
+                window.location.href = '/register';
             }
         })
         .catch(error => {

@@ -10,11 +10,6 @@ router.get('/', (req, res) => {
     res.render('login');
 })
 
-// Ruta de acceso libre
-router.get('/home', (req, res) => {
-    res.render('home');
-})
-
 // Ruta protegida: (solo accesible si el usuario no está autenticado)
 router.get('/login', (req, res) => {
     const token = req.cookies.access_token;
