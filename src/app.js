@@ -6,6 +6,8 @@ import sessionsRouter from './routes/sessions.js';
 import viewsRouter from './routes/views.js';
 import mongoose from 'mongoose';
 import config from './config/config.js';
+import { Server } from "socket.io";
+import Message from './dao/models/message.js';
 
 const MONGO_URL = config.mongoUrl
 const PORT = config.port
@@ -33,3 +35,33 @@ app.get("*", (req, res) => {
 });
 
 const server = app.listen(PORT, () => console.log("Listening on port " + PORT))
+
+// Chat
+const io = new Server(server)
+let messages = [];
+
+io.on('connection', socket => {
+    console.log('Nuevo cliente conectado');
+
+    socket.on('message', data => {
+        messages.push(data);
+
+        // Crea un nuevo mensaje usando el messageSchema y lo guarda en MongoDB
+        const newMessage = new Message({
+            user: data.user,
+            message: data.message,
+        });
+
+        newMessage.save()
+            .then(() => {
+                io.emit('messageLogs', messages);
+            })
+            .catch(error => {
+                console.error('Error al guardar el mensaje en MongoDB:', error);
+            });
+    });
+
+    socket.on('authenticated', data => {
+        socket.broadcast.emit('newUserConnected', data);
+    });
+});

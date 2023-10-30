@@ -58,6 +58,21 @@ export function getCurrentPage(req, res) {
     });
 }
 
+// Controlador para la vista de chat
+export function getChatPage(req, res) {
+    // Verifica la autenticación
+    requireAuth(req, res, () => {
+        // Recupera el token de la cookie "access_token"
+        const user = cookieExtractor(req);
+
+        if (!user) {
+            return res.status(401).json({ status: "error", message: "Token not provided" });
+        }
+        const { name, email, role } = user;
+        res.render('chat', { user });
+    });
+}
+
 // Controlador para la vista de productos
 export async function getProductsPage(req, res) {
     // Verifica la autenticación

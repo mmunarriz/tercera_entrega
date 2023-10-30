@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getHomePage, getLoginPage, getRegisterPage, getProfilePage, getCurrentPage, getProductsPage, logoutUser } from '../controllers/views.js';
+import { getHomePage, getLoginPage, getRegisterPage, getProfilePage, getCurrentPage, getChatPage, getProductsPage, logoutUser } from '../controllers/views.js';
 
 
 const router = Router();
@@ -12,6 +12,7 @@ router.get('/register', getRegisterPage);
 // Rutas que requieren estar autenticado
 router.get('/profile', getProfilePage);
 router.get('/current', getCurrentPage);
+router.get('/chat', getChatPage);
 router.get('/products', getProductsPage);
 router.get('/logout', logoutUser);
 
