@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { getHomePage, getLoginPage, getRegisterPage, getProfilePage, getCurrentPage, getChatPage, getProductsPage, logoutUser } from '../controllers/views.js';
-
+import { getHomePage, getLoginPage, getRegisterPage, logoutUser } from '../controllers/views.js';
+import { getProfilePage, getCurrentPage, getChatPage, getProductsPage } from '../controllers/views.js';
 
 const router = Router();
 

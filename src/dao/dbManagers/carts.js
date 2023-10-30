@@ -1,8 +1,7 @@
-import cartsModel from "../models/carts.model.js";
+import cartsModel from "../models/carts.js";
 
 export default class Carts {
     constructor() {
-        // console.log("Working carts with database in mongodb")
     }
 
     saveCart = async (cart) => {

@@ -1,8 +1,7 @@
-import productsModel from "../models/products.model.js"
+import productsModel from "../models/products.js"
 
 export default class Products {
     constructor() {
-        // console.log(`Working products with Database persistence in mongodb`)
     }
 
     getAll = async (limit = 8, page = 1, queryOptions = {}, sort = '') => {
