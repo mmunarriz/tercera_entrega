@@ -29,6 +29,7 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
+// Routes
 app.use('/', viewsRouter);
 app.use('/sessions', sessionsRouter);
 app.use('/products', productsRouter);
