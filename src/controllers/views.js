@@ -78,11 +78,6 @@ export async function getProductsPage(req, res) {
     // Verifica la autenticación
     requireAuth(req, res, async () => {
         try {
-            const { page = 1 } = req.query;
-            const result = await productsModel.paginate({}, { limit: 8, page, lean: true });
-            const { docs, hasPrevPage, hasNextPage, nextPage, prevPage } = result;
-            const products = docs;
-
             // Recupera el token de la cookie "access_token"
             const user = cookieExtractor(req);
 
@@ -90,6 +85,11 @@ export async function getProductsPage(req, res) {
                 return res.status(401).json({ status: "error", message: "Token not provided" });
             }
             const { name, email, role } = user;
+
+            const { page = 1 } = req.query;
+            const result = await productsModel.paginate({}, { limit: 8, page, lean: true });
+            const { docs, hasPrevPage, hasNextPage, nextPage, prevPage } = result;
+            const products = docs;
 
             res.render('products', {
                 user,
