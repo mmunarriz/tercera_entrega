@@ -4,8 +4,6 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import sessionsRouter from './routes/sessions.js';
 import viewsRouter from './routes/views.js';
-import productsRouter from './routes/products.js'
-import cartsRouter from './routes/carts.js'
 import mongoose from 'mongoose';
 import config from './config/config.js';
 import { Server } from "socket.io";
@@ -32,8 +30,6 @@ app.set('view engine', 'handlebars');
 
 app.use('/', viewsRouter);
 app.use('/api/sessions', sessionsRouter);
-app.use('/api/products', productsRouter);
-app.use('/api/carts', cartsRouter);
 // catch all route
 app.get("*", (req, res) => {
     res.send('Error 404 - Not Found');
