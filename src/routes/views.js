@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getHomePage, getLoginPage, getRegisterPage, logoutUser } from '../controllers/views.js';
-import { getProfilePage, getCurrentPage, getChatPage, getProductsPage } from '../controllers/views.js';
+import { getProfilePage, getCurrentPage, getChatPage } from '../controllers/views.js';
 
 const router = Router();
 
@@ -13,7 +13,6 @@ router.get('/register', getRegisterPage);
 router.get('/profile', getProfilePage);
 router.get('/current', getCurrentPage);
 router.get('/chat', getChatPage);
-router.get('/products', getProductsPage);
 router.get('/logout', logoutUser);
 
 
