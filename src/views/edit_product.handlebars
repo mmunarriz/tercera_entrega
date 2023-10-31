@@ -1,0 +1,74 @@
+<main class="container-fluid mb-5">
+  <h2 class="text-center h2 mt-4 mb-4">Editar producto</h2>
+  <div class="row justify-content-center">
+    <article class="col-md-6 mt-mobile">
+      <form class="row g-3" id="editProductForm">
+        <div class="col-12">
+          <label for="title" class="form-label">Titulo</label>
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            placeholder="Nombre del producto"
+            autofocus
+            required
+          />
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label">Descripcion</label>
+          <input
+            name="description"
+            type="text"
+            class="form-control"
+            placeholder="Descripcion del producto"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <label for="category" class="form-label">Categoria</label>
+          <input
+            name="category"
+            type="text"
+            class="form-control"
+            placeholder="Categoria del producto"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <label for="price" class="form-label">Precio</label>
+          <input
+            name="price"
+            type="number"
+            class="form-control"
+            placeholder="Precio del producto"
+          />
+        </div>
+        <div class="col-12">
+          <label for="code" class="form-label">Codigo</label>
+          <input
+            name="code"
+            type="text"
+            class="form-control"
+            placeholder="Codigo del producto"
+            required
+          />
+        </div>
+        <div class="col-12">
+          <label for="stock" class="form-label">Stock</label>
+          <input
+            name="stock"
+            type="number"
+            class="form-control"
+            placeholder="Stock del producto"
+          />
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">
+            Enviar Formulario
+          </button>
+        </div>
+      </form>
+    </article>
+  </div>
+</main>
+<script src="/js/editProduct.js"></script>

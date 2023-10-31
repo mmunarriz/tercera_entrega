@@ -19,11 +19,16 @@ export async function getProductsPage(req, res) {
             const { name, email, role } = user;
 
             const { page = 1 } = req.query;
-            const result = await productsModel.paginate({}, { limit: 8, page, lean: true });
+            const result = await productsModel.paginate({}, { limit: 5, page, lean: true });
             const { docs, hasPrevPage, hasNextPage, nextPage, prevPage } = result;
             const products = docs;
 
-            res.render('products', {
+            let render_page = 'products';
+            if (user.role === 'admin') {
+                render_page = 'admin_products';
+            }
+
+            res.render(render_page, {
                 user,
                 products,
                 hasPrevPage,

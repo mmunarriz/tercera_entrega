@@ -26,13 +26,18 @@
                 <td>{{this.price}}</td>
                 <td>{{this.stock}}</td>
                 <td>
-                  <form
-                    method="POST"
-                    action="/api/carts/64f63dd5204b88b11d73293f/product/{{this._id}}"
-                    {{! carrito '64f63dd5204b88b11d73293f' hardcodeado }}
-                  >
-                    <button class="btn btn-outline-primary btn-sm">Agregar al carrito</button>
-                  </form>
+                  <div class="btn-group" role="group">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                      onclick="editarProducto('{{this._id}}')"
+                    >Editar</button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      onclick="eliminarProducto('{{this._id}}')"
+                    >Eliminar</button>
+                  </div>
                 </td>
               </tr>
             {{/each}}
@@ -54,3 +59,4 @@
     {{/if}}
   </section>
 </main>
+<script src="/js/adminProduct.js"></script>
