@@ -4,7 +4,7 @@ export default class Products {
     constructor() {
     }
 
-    getAll = async (limit = 8, page = 1, queryOptions = {}, sort = '') => {
+    getAll = async (limit = 10, page = 1, queryOptions = {}, sort = '') => {
         try {
             // Calcular el índice de inicio para paginación
             const startIndex = (page - 1) * limit;
@@ -35,5 +35,31 @@ export default class Products {
         } catch (error) {
             throw error;
         }
+    }
+
+    getProductById = async (id) => {
+        try {
+            const product = await productsModel.findById(id);
+            if (!product) return null; // Retornar null si el producto no se encuentra
+            return product.toObject();
+        } catch (error) {
+            throw error; // Propagar cualquier error que ocurra al llamar a findById
+        }
+    }
+    isProductCodeExist = async (code) => {
+        const existingProduct = await productsModel.findOne({ code });
+        return !!existingProduct; // Retornar True o False si se encontro un producto con el mismo code o no.
+    }
+    saveProduct = async (product) => {
+        let result = await productsModel.create(product);
+        return result;
+    }
+    updateProduct = async (id, product) => {
+        let result = await productsModel.updateOne({ _id: id }, product)
+        return result;
+    }
+    deleteProduct = async (id) => {
+        const result = await productsModel.deleteOne({ _id: id });
+        return result;
     }
 }
