@@ -1,12 +1,14 @@
 const form = document.getElementById('editProductForm');
+const productId = form.querySelector('[name="pid"]');
+const pid = productId.value;
 
 form.addEventListener('submit', e => {
     e.preventDefault();
     const data = new FormData(form);
     const obj = {};
     data.forEach((value, key) => obj[key] = value);
-    fetch('/products', {
-        method: 'POST',
+    fetch(`/products/${pid}`, {
+        method: 'PUT',
         body: JSON.stringify(obj),
         headers: {
             'Content-Type': 'application/json'
@@ -23,11 +25,11 @@ form.addEventListener('submit', e => {
         })
         .then(data => {
             if (data.status === "success") {
-                alert("Successfully registered product");
+                alert("Successfully updated product");
                 window.location.href = '/products';
-            } else if (data.status === "error") { 
+            } else if (data.status === "error") {
                 alert(data.error);
-                window.location.href = '/products/add_product';
+                window.location.href = '/products';
             }
         })
         .catch(error => {

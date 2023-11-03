@@ -27,16 +27,14 @@
                 <td>{{this.stock}}</td>
                 <td>
                   <div class="btn-group" role="group">
-                    <button
-                      type="button"
+                    <a
+                      href="/products/{{this._id}}"
                       class="btn btn-outline-primary btn-sm"
-                      onclick="editarProducto('{{this._id}}')"
-                    >Editar</button>
-                    <button
-                      type="button"
+                    >Editar</a>
+                    <a
+                      href="/products/{{this._id}}"
                       class="btn btn-outline-danger btn-sm"
-                      onclick="eliminarProducto('{{this._id}}')"
-                    >Eliminar</button>
+                    >Eliminar</a>
                   </div>
                 </td>
               </tr>
@@ -59,4 +57,3 @@
     {{/if}}
   </section>
 </main>
-<script src="/js/adminProduct.js"></script>
