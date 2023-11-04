@@ -31,10 +31,11 @@
                       href="/products/{{this._id}}"
                       class="btn btn-outline-primary btn-sm"
                     >Editar</a>
-                    <a
-                      href="/products/{{this._id}}"
+                    <button
+                      type="button"
                       class="btn btn-outline-danger btn-sm"
-                    >Eliminar</a>
+                      onclick="eliminarProducto('{{this._id}}')"
+                    >Eliminar</button>
                   </div>
                 </td>
               </tr>
@@ -57,3 +58,4 @@
     {{/if}}
   </section>
 </main>
+<script src="/js/delProduct.js"></script>

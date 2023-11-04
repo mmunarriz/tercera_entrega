@@ -8,6 +8,7 @@ import {
 import {
   getProduct,
   editProductPage,
+  deleteProductPage,
 } from "../controllers/products.js";
 
 const productsManager = new Products();
@@ -29,28 +30,6 @@ router.get("/:pid", getProduct);
 router.put("/:pid", editProductPage);
 
 // Eliminar un producto
-router.delete("/:pid", async (req, res) => {
-  try {
-    const productId = req.params.pid;
-
-    // Verifica si el producto con el ID dado existe
-    const existingProduct = await productsManager.getProductById(productId);
-
-    if (!existingProduct) {
-      return res
-        .status(404)
-        .send({ status: "error", error: "Producto no encontrado" });
-    }
-
-    // Elimina el producto de la base de datos
-    await productsManager.deleteProduct(productId);
-
-    res
-      .status(200)
-      .send({ status: "success", message: "Producto eliminado exitosamente" });
-  } catch (error) {
-    res.status(400).send({ status: "error", error: error.message });
-  }
-});
+router.delete("/:pid", deleteProductPage);
 
 export default router;

@@ -221,3 +221,31 @@ export async function editProductPage(req, res) {
     }
   });
 }
+
+// Controlador para la vista de eliminar productos
+export async function deleteProductPage(req, res) {
+  // Verifica la autenticación
+  requireAuth(req, res, async () => {
+    try {
+      const productId = req.params.pid;
+
+      // Verifica si el producto con el ID dado existe
+      const existingProduct = await productsManager.getProductById(productId);
+
+      if (!existingProduct) {
+        return res
+          .status(404)
+          .send({ status: "error", error: "Producto no encontrado" });
+      }
+
+      // Elimina el producto de la base de datos
+      await productsManager.deleteProduct(productId);
+
+      res
+        .status(200)
+        .send({ status: "success", message: "Producto eliminado exitosamente" });
+    } catch (error) {
+      res.status(400).send({ status: "error", error: error.message });
+    }
+  });
+}
